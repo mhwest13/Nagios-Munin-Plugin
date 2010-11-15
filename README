@@ -1,0 +1,63 @@
+           MUNIN Plugin for NAGIOS 
+          =========================
+
+Munin plugin for graphing information out of Nagios
+
+
+INSTALLATION
+============
+
+1) Dependencies
+    - Nagios v3.2.3+  (Tested against v3.2.3)
+    - munin-node v1.4.+
+    - Perl Module: File::Basename
+
+2) Place plugin in /usr/share/munin/plugins
+    or own personal plugin directory
+
+3) Inform Munin of plugin dependencies, add necessary options
+
+    In /etc/munin/plugin-conf.d/nagios
+    [nagios*]
+    user root
+    env.binary full_path_to_nagiostats_binary/nagiostats
+    env.passive off
+
+4) Run munin-node-configure --suggest
+    you can grep for nagios_multi_ if you'd like.
+
+    If everything is successful you should find:
+    nagios_multi_ | yes | yes (checks hosts services)
+
+5) Run munin-node-configure --suggest --shell
+    you can grep for nagios_multi_ if you'd like.
+
+    If everything is successful you should find:
+    ln -s '/usr/share/munin/plugins/nagios_multi_' '/etc/munin/plugins/nagios_multi_checks'
+    ln -s '/usr/share/munin/plugins/nagios_multi_' '/etc/munin/plugins/nagios_multi_hosts'
+    ln -s '/usr/share/munin/plugins/nagios_multi_' '/etc/munin/plugins/nagios_multi_services'
+
+6) Restart munin-node
+
+
+INFORMATION
+===========
+
+If you'd like to learn further about the plugin, there is more documentation stored in the
+file as POD, you can view this info with perldoc.
+
+
+Source Code < https://github.com/mhwest13/Nagios-Munin-Plugin >
+
+Issues < https://github.com/mhwest13/Nagios-Munin-Plugin/issues >
+
+TROUBLESHOOTING
+===============
+
+Make sure you've setup your munin plugin-conf.d file for the proper runtime variables.
+
+Commonly the user root is needed to interact with nagiostats unless you've changed your
+environment to allow a different user to run this binary.
+
+Munin Plugin document that can help you with troubleshooting...
+    http://munin-monitoring.org/wiki/Documentation#Plugins
