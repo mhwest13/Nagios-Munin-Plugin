@@ -310,13 +310,14 @@ $graphs{hostchkactcount} = {
         category => 'active',
         title => 'Host Checks',
         info => 'Total Number of Active Host Checks',
+        order => 'NUMHSTACTCHK60M NUMHSTACTCHK15M NUMHSTACTCHK5M NUMHSTACTCHK1M',
     },
     keys => [ 'NUMHSTACTCHK1M', 'NUMHSTACTCHK5M', 'NUMHSTACTCHK15M', 'NUMHSTACTCHK60M' ],
     datasrc => [
-        { name => 'NUMHSTACTCHK1M', label => 'Active Checks 1m', min => '0', type => 'GAUGE', info => 'number of hosts actively checked in last 1 minutes.', draw => 'LINE2' },
-        { name => 'NUMHSTACTCHK5M', label => 'Active Checks 5m', min => '0', type => 'GAUGE', info => 'number of hosts actively checked in last 5 minutes.', draw => 'LINE2' },
-        { name => 'NUMHSTACTCHK15M', label => 'Active Checks 15m', min => '0', type => 'GAUGE', info => 'number of hosts actively checked in last 15 minutes.', draw => 'LINE2' },
-        { name => 'NUMHSTACTCHK60M', label => 'Active Checks 60m', min => '0', type => 'GAUGE', info => 'number of hosts actively checked in last 60 minutes.', draw => 'LINE2' },
+        { name => 'NUMHSTACTCHK1M', label => 'Active Checks 1m', min => '0', type => 'GAUGE', info => 'number of hosts actively checked in last 1 minutes.', draw => 'AREA' },
+        { name => 'NUMHSTACTCHK5M', label => 'Active Checks 5m', min => '0', type => 'GAUGE', info => 'number of hosts actively checked in last 5 minutes.', draw => 'AREA' },
+        { name => 'NUMHSTACTCHK15M', label => 'Active Checks 15m', min => '0', type => 'GAUGE', info => 'number of hosts actively checked in last 15 minutes.', draw => 'AREA' },
+        { name => 'NUMHSTACTCHK60M', label => 'Active Checks 60m', min => '0', type => 'GAUGE', info => 'number of hosts actively checked in last 60 minutes.', draw => 'AREA' },
     ],
 };
 # multi-graph for number of host checks in x mins ( sub graph of checks graph )
@@ -327,13 +328,14 @@ $graphs{hostchkpsvcount} = {
         category => 'passive',
         title => 'Host Checks',
         info => 'Total Number of Passive Host Checks',
+        order => 'NUMHSTPSVCHK60M NUMHSTPSVCHK15M NUMHSTPSVCHK5M NUMHSTPSVCHK1M',
     },
     keys => [ 'NUMHSTPSVCHK1M', 'NUMHSTPSVCHK5M', 'NUMHSTPSVCHK15M', 'NUMHSTPSVCHK60M' ],
     datasrc => [
-        { name => 'NUMHSTPSVCHK1M', label => 'Passive Checks 1m', min => '0', type => 'GAUGE', info => 'number of hosts passively checked in last 1 minutes.', draw => 'LINE2' },
-        { name => 'NUMHSTPSVCHK5M', label => 'Passive Checks 5m', min => '0', type => 'GAUGE', info => 'number of hosts passively checked in last 5 minutes.', draw => 'LINE2' },
-        { name => 'NUMHSTPSVCHK15M', label => 'Passive Checks 15m', min => '0', type => 'GAUGE', info => 'number of hosts passively checked in last 15 minutes.', draw => 'LINE2' },
-        { name => 'NUMHSTPSVCHK60M', label => 'Passive Checks 60m', min => '0', type => 'GAUGE', info => 'number of hosts passively checked in last 60 minutes.', draw => 'LINE2' },
+        { name => 'NUMHSTPSVCHK1M', label => 'Passive Checks 1m', min => '0', type => 'GAUGE', info => 'number of hosts passively checked in last 1 minutes.', draw => 'AREA' },
+        { name => 'NUMHSTPSVCHK5M', label => 'Passive Checks 5m', min => '0', type => 'GAUGE', info => 'number of hosts passively checked in last 5 minutes.', draw => 'AREA' },
+        { name => 'NUMHSTPSVCHK15M', label => 'Passive Checks 15m', min => '0', type => 'GAUGE', info => 'number of hosts passively checked in last 15 minutes.', draw => 'AREA' },
+        { name => 'NUMHSTPSVCHK60M', label => 'Passive Checks 60m', min => '0', type => 'GAUGE', info => 'number of hosts passively checked in last 60 minutes.', draw => 'AREA' },
     ],
 };
 # multi-graph for number of service checks in x mins ( sub graph of checks graph )
@@ -344,13 +346,14 @@ $graphs{svcchkactcount} = {
         category => 'active',
         title => 'Service Checks',
         info => 'Total Number of Active Service Checks',
+        order => 'NUMSVCACTCHK60M NUMSVCACTCHK15M NUMSVCACTCHK5M NUMSVCACTCHK1M',
     },
     keys => [ 'NUMSVCACTCHK1M', 'NUMSVCACTCHK5M', 'NUMSVCACTCHK15M', 'NUMSVCACTCHK60M' ],
     datasrc => [
-        { name => 'NUMSVCACTCHK1M', label => 'Active Checks 1m', min => '0', type => 'GAUGE', info => 'number of services actively checked in last 1 minutes.', draw => 'LINE2' },
-        { name => 'NUMSVCACTCHK5M', label => 'Active Checks 5m', min => '0', type => 'GAUGE', info => 'number of services actively checked in last 5 minutes.', draw => 'LINE2' },
-        { name => 'NUMSVCACTCHK15M', label => 'Active Checks 15m', min => '0', type => 'GAUGE', info => 'number of services actively checked in last 15 minutes.', draw => 'LINE2' },
-        { name => 'NUMSVCACTCHK60M', label => 'Active Checks 60m', min => '0', type => 'GAUGE', info => 'number of services actively checked in last 60 minutes.', draw => 'LINE2' },
+        { name => 'NUMSVCACTCHK1M', label => 'Active Checks 1m', min => '0', type => 'GAUGE', info => 'number of services actively checked in last 1 minutes.', draw => 'AREA' },
+        { name => 'NUMSVCACTCHK5M', label => 'Active Checks 5m', min => '0', type => 'GAUGE', info => 'number of services actively checked in last 5 minutes.', draw => 'AREA' },
+        { name => 'NUMSVCACTCHK15M', label => 'Active Checks 15m', min => '0', type => 'GAUGE', info => 'number of services actively checked in last 15 minutes.', draw => 'AREA' },
+        { name => 'NUMSVCACTCHK60M', label => 'Active Checks 60m', min => '0', type => 'GAUGE', info => 'number of services actively checked in last 60 minutes.', draw => 'AREA' },
     ],
 };
 # multi-graph for number of service checks in x mins ( sub graph of checks graph )
@@ -361,13 +364,14 @@ $graphs{svcchkpsvcount} = {
         category => 'passive',
         title => 'Service Checks',
         info => 'Total Number of Passive Service Checks',
+        order => 'NUMSVCPSVCHK60M NUMSVCPSVCHK15M NUMSVCPSVCHK5M NUMSVCPSVCHK1M',
     },
     keys => [ 'NUMSVCPSVCHK1M', 'NUMSVCPSVCHK5M', 'NUMSVCPSVCHK15M', 'NUMSVCPSVCHK60M' ],
     datasrc => [
-        { name => 'NUMSVCPSVCHK1M', label => 'Passive Checks 1m', min => '0', type => 'GAUGE', info => 'number of services passively checked in last 1 minutes.', draw => 'LINE2' },
-        { name => 'NUMSVCPSVCHK5M', label => 'Passive Checks 5m', min => '0', type => 'GAUGE', info => 'number of services passively checked in last 5 minutes.', draw => 'LINE2' },
-        { name => 'NUMSVCPSVCHK15M', label => 'Passive Checks 15m', min => '0', type => 'GAUGE', info => 'number of services passively checked in last 15 minutes.', draw => 'LINE2' },
-        { name => 'NUMSVCPSVCHK60M', label => 'Passive Checks 60m', min => '0', type => 'GAUGE', info => 'number of services passively checked in last 60 minutes.', draw => 'LINE2' },
+        { name => 'NUMSVCPSVCHK1M', label => 'Passive Checks 1m', min => '0', type => 'GAUGE', info => 'number of services passively checked in last 1 minutes.', draw => 'AREA' },
+        { name => 'NUMSVCPSVCHK5M', label => 'Passive Checks 5m', min => '0', type => 'GAUGE', info => 'number of services passively checked in last 5 minutes.', draw => 'AREA' },
+        { name => 'NUMSVCPSVCHK15M', label => 'Passive Checks 15m', min => '0', type => 'GAUGE', info => 'number of services passively checked in last 15 minutes.', draw => 'AREA' },
+        { name => 'NUMSVCPSVCHK60M', label => 'Passive Checks 60m', min => '0', type => 'GAUGE', info => 'number of services passively checked in last 60 minutes.', draw => 'AREA' },
     ],
 };
 # multi-graph for external command count ( sub graph of checks graph )
