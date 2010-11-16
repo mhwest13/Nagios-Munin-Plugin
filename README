@@ -3,6 +3,16 @@
 
 Munin plugin for graphing information out of Nagios
 
+Nagios: http://nagios.org/
+
+Munin: http://munin-monitoring.org/
+
+
+What does this plugin do?
+
+This plugin will give you an overview of all the host / service checks and their state
+as well as check execution / latency times.
+
 
 INSTALLATION
 ============
@@ -56,6 +66,7 @@ Issues < https://github.com/mhwest13/Nagios-Munin-Plugin/issues >
 
 Further Help < http://munin-monitoring.org/wiki/HowToGetHelp >
 
+
 TROUBLESHOOTING
 ===============
 
@@ -63,6 +74,3 @@ Make sure you've setup your munin plugin-conf.d file for the proper runtime vari
 
 Commonly the user root is needed to interact with nagiostats unless you've changed your
 environment to allow a different user to run this binary.
-
-Munin Plugin document that can help you with troubleshooting...
-    http://munin-monitoring.org/wiki/Documentation#Plugins
