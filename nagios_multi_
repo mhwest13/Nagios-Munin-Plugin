@@ -53,7 +53,7 @@ A Plugin to monitor Nagios Servers and their Performance (Multigraph)
 
 =head1 AUTHOR
 
-Matt West < find a new home? look into github? wtf get yo shit together >
+Matt West < https://github.com/mhwest13/Nagios-Munin-Plugin >
 
 =head1 LICENSE
 
@@ -130,7 +130,7 @@ $graphs{services} = {
     datasrc => [
         { name => 'NUMSVCOK', label => 'Up', min => '0', type => 'GAUGE', info => 'number of services which are Ok.', graph => 'no', draw => 'LINE2' },
         { name => 'NUMSVCWARN', label => 'Warning', min => '0', type => 'GAUGE', info => 'number of services which are Warning.', draw => 'LINE2' },
-        { name => 'NUMSVCUNKN', label => 'UnReachable', min => '0', type => 'GAUGE', info => 'number of services which are Unknown.', draw => 'LINE2' },
+        { name => 'NUMSVCUNKN', label => 'Unknown', min => '0', type => 'GAUGE', info => 'number of services which are Unknown.', draw => 'LINE2' },
         { name => 'NUMSVCCRIT', label => 'Critical', min => '0', type => 'GAUGE', info => 'number of services which are Critical.', draw => 'LINE2' },
     ],
 };
@@ -139,16 +139,19 @@ $graphs{svcchkdetail} = {
     config => {
         args => '--lower-limit 0',
         vlabel => 'Total # of Service Checks',
-        category => 'nagios',
+        category => 'details',
         title => 'Detailed Service Info',
         info => 'Detailed Service Check Information',
     },
-    keys => [ 'NUMSVCCHECKED', 'NUMSVCSCHEDULED', 'NUMSVCFLAPPING', 'NUMSVCDOWNTIME' ],
+    keys => [ 'NUMSVCWARN', 'NUMSVCUNKN', 'NUMSVCCRIT', 'NUMSVCCHECKED', 'NUMSVCSCHEDULED', 'NUMSVCFLAPPING', 'NUMSVCDOWNTIME' ],
     datasrc => [
+        { name => 'NUMSVCWARN', label => 'Warning', min => '0', type => 'GAUGE', info => 'number of services which are Warning.', draw => 'LINE2' },
+        { name => 'NUMSVCUNKN', label => 'Unknown', min => '0', type => 'GAUGE', info => 'number of services which are Unknown.', draw => 'LINE2' },
+        { name => 'NUMSVCCRIT', label => 'Critical', min => '0', type => 'GAUGE', info => 'number of services which are Critical.', draw => 'LINE2' },
         { name => 'NUMSVCCHECKED', label => 'Checked', min => '0', type => 'GAUGE', info => 'total number of services that have been checked since start.', draw => 'LINE2' },
         { name => 'NUMSVCSCHEDULED', label => 'Scheduled', min => '0', type => 'GAUGE', info => 'total number of services that are currently scheduled to be checked.', draw => 'LINE2' },
         { name => 'NUMSVCFLAPPING', label => 'Flapping', min => '0', type => 'GAUGE', info => 'total number of services that are currently flapping.', draw => 'LINE2' },
-        { name => 'NUMSVCDOWNTIME', label => 'Downtime', min => '0', type => 'GAUGE', info => 'total number of services that are currently in downtime.', draw => 'LINE2' },
+        { name => 'NUMSVCDOWNTIME', label => 'Scheduled Downtime', min => '0', type => 'GAUGE', info => 'total number of services that are currently in scheduled downtime.', draw => 'LINE2' },
     ],
 };
 # multi-graph for service check % state change ( sub graph of service problems graph )
@@ -156,7 +159,7 @@ $graphs{svcchksc} = {
     config => {
         args => '--lower-limit 0 --upper-limit 100',
         vlabel => '%',
-        category => 'nagios',
+        category => 'statechange',
         title => 'State Change',
         info => 'Total Percent of State Change between checks',
     },
@@ -172,7 +175,7 @@ $graphs{svcchklat} = {
     config => {
         args => '--lower-limit 0',
         vlabel => 'time (ms)',
-        category => 'nagios',
+        category => 'latency',
         title => 'Service Check Latency Times',
         info => 'Service Check Latency Times',
     },
@@ -188,7 +191,7 @@ $graphs{svcchkext} = {
     config => {
         args => '--lower-limit 0',
         vlabel => 'time (ms)',
-        category => 'nagios',
+        category => 'execution',
         title => 'Service Check Execution Times',
         info => 'Service Check Execution Times',
     },
@@ -213,7 +216,7 @@ $graphs{hosts} = {
     datasrc => [
         { name => 'NUMHSTUP', label => 'Up', min => '0', type => 'GAUGE', info => 'number of hosts up.', graph => 'no', draw => 'LINE2' },
         { name => 'NUMHSTDOWN', label => 'Down', min => '0', type => 'GAUGE', info => 'number of hosts which are down.', draw => 'LINE2' },
-        { name => 'NUMHSTUNR', label => 'UnReachable', min => '0', type => 'GAUGE', info => 'number of hosts which are Unreachable.', draw => 'LINE2' },
+        { name => 'NUMHSTUNR', label => 'Unknown', min => '0', type => 'GAUGE', info => 'number of hosts which are Unreachable.', draw => 'LINE2' },
     ],
 };
 # multi-graph for host check detail information ( sub graph of host problems graph )
@@ -221,16 +224,18 @@ $graphs{hostchkdetail} = {
     config => {
         args => '--lower-limit 0',
         vlabel => 'Total # of Host Checks',
-        category => 'nagios',
+        category => 'details',
         title => 'Detailed Host Info',
         info => 'Detailed Host Check Information',
     },
-    keys => [ 'NUMHSTCHECKED', 'NUMHSTSCHEDULED', 'NUMHSTFLAPPING', 'NUMHSTDOWNTIME' ],
+    keys => [ 'NUMHSTDOWN', 'NUMHSTUNR', 'NUMHSTCHECKED', 'NUMHSTSCHEDULED', 'NUMHSTFLAPPING', 'NUMHSTDOWNTIME' ],
     datasrc => [
+        { name => 'NUMHSTDOWN', label => 'Down', min => '0', type => 'GAUGE', info => 'number of hosts which are down.', draw => 'LINE2' },
+        { name => 'NUMHSTUNR', label => 'Unknown', min => '0', type => 'GAUGE', info => 'number of hosts which are Unreachable.', draw => 'LINE2' },
         { name => 'NUMHSTCHECKED', label => 'Checked', min => '0', type => 'GAUGE', info => 'total number of hosts that have been checked since start.', draw => 'LINE2' },
         { name => 'NUMHSTSCHEDULED', label => 'Scheduled', min => '0', type => 'GAUGE', info => 'total number of hosts that are currently scheduled to be checked.', draw => 'LINE2' },
         { name => 'NUMHSTFLAPPING', label => 'Flapping', min => '0', type => 'GAUGE', info => 'total number of hosts that are currently flapping.', draw => 'LINE2' },
-        { name => 'NUMHSTDOWNTIME', label => 'Downtime', min => '0', type => 'GAUGE', info => 'total number of hosts that are currently in downtime.', draw => 'LINE2' },
+        { name => 'NUMHSTDOWNTIME', label => 'Downtime', min => '0', type => 'GAUGE', info => 'total number of hosts that are currently in scheduled downtime.', draw => 'LINE2' },
     ],
 };
 # multi-graph for host check % state change ( sub graph of host problems graph )
@@ -238,7 +243,7 @@ $graphs{hostchksc} = {
     config => {
         args => '--lower-limit 0 --upper-limit 100',
         vlabel => '%',
-        category => 'nagios',
+        category => 'statechange',
         title => 'State Change',
         info => 'Total Percent of State Change between checks',
     },
@@ -254,7 +259,7 @@ $graphs{hostchklat} = {
     config => {
         args => '--lower-limit 0',
         vlabel => 'time (ms)',
-        category => 'nagios',
+        category => 'latency',
         title => 'Host Check Latency Times',
         info => 'Host Check Latency Times',
     },
@@ -270,7 +275,7 @@ $graphs{hostchkext} = {
     config => {
         args => '--lower-limit 0',
         vlabel => 'time (ms)',
-        category => 'nagios',
+        category => 'execution',
         title => 'Host Check Execution Times',
         info => 'Host Check Execution Times',
     },
@@ -302,7 +307,7 @@ $graphs{hostchkactcount} = {
     config => {
         args => '--lower-limit 0',
         vlabel => '# Host Checks',
-        category => 'nagios',
+        category => 'active',
         title => 'Host Checks',
         info => 'Total Number of Active Host Checks',
     },
@@ -319,7 +324,7 @@ $graphs{hostchkpsvcount} = {
     config => {
         args => '--lower-limit 0',
         vlabel => '# Host Checks',
-        category => 'nagios',
+        category => 'passive',
         title => 'Host Checks',
         info => 'Total Number of Passive Host Checks',
     },
@@ -336,7 +341,7 @@ $graphs{svcchkactcount} = {
     config => {
         args => '--lower-limit 0',
         vlabel => '# of Service Checks',
-        category => 'nagios',
+        category => 'active',
         title => 'Service Checks',
         info => 'Total Number of Active Service Checks',
     },
@@ -353,7 +358,7 @@ $graphs{svcchkpsvcount} = {
     config => {
         args => '--lower-limit 0',
         vlabel => '# of Service Checks',
-        category => 'nagios',
+        category => 'passive',
         title => 'Service Checks',
         info => 'Total Number of Passive Service Checks',
     },
@@ -370,7 +375,7 @@ $graphs{extcmdcount} = {
     config => {
         args => '--lower-limit 0',
         vlabel => '# of Ext Command Slots',
-        category => 'nagios',
+        category => 'externalcmds',
         title => 'External Commands',
         info => 'External Command Buffer Slot Information',
     },

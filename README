@@ -9,6 +9,7 @@ INSTALLATION
 
 1) Dependencies
     - Nagios v3.2.3+  (Tested against v3.2.3)
+    - munin-master v1.4.+
     - munin-node v1.4.+
     - Perl Module: File::Basename
 
@@ -46,10 +47,14 @@ INFORMATION
 If you'd like to learn further about the plugin, there is more documentation stored in the
 file as POD, you can view this info with perldoc.
 
+If your Nagios setup has passive checks enabled and in use, set the passive to on, this will
+change a flag to graph 2 more graphs in regards to passive host / service checks.
 
 Source Code < https://github.com/mhwest13/Nagios-Munin-Plugin >
 
 Issues < https://github.com/mhwest13/Nagios-Munin-Plugin/issues >
+
+Further Help < http://munin-monitoring.org/wiki/HowToGetHelp >
 
 TROUBLESHOOTING
 ===============
