@@ -24,13 +24,13 @@ A Plugin to monitor Nagios Servers and their Performance (Multigraph)
  Available root graphs and subgraphs contained in this Plugin.
 
  services => I<MULTIGRAPH> This graphs the current service problems.
-    svcchkdetail => This graph shows current services checked,scheduled,flapping,down
+    svcchkdetail => This graph shows current services warning,critical,unknown,checked,scheduled,flapping,down
     svcchkext => This graph shows the service check execution times
     svcchklat => This graph shows the service check latency times
     svcchksc => This graph shows the serivce check state change %
 
  hosts => I<MULTIGRAPH> This graphs the current host problems.
-    hostchkdetail => This graph shows current hosts checked,scheduled,flapping,down
+    hostchkdetail => This graph shows current hosts down,unreachable,checked,scheduled,flapping,down
     hostchkext => This graph shows the host check execution times
     hostchklat => This graph shows the host check latency times
     hostchksc => This graph shows the host check state change %
@@ -39,10 +39,10 @@ A Plugin to monitor Nagios Servers and their Performance (Multigraph)
     extcmdcount => This graph shows external command buffer availability / usage
     hostchkactcount => This graph shows the active host checks for the last 1,5,15,60M
     hostchkpsvcount => This graph shows the passive host checks for the last 1,5,15,60M
-        * depends on passive flag, which defaults to off
+        * depends on passive flag, which defaults to off, and forces these graphs to not be drawn
     svcchkactcount => This graph shows the active service checks for the last 1,5,15,60M
     svcchkpsvcount => This graph shows the passive service checks for the last 1,5,15,60M
-        * depends on passive flag, which defaults to off
+        * depends on passive flag, which defaults to off, and forces these graphs to not be drawn
 
 =head1 MUNIN PLUGIN DOCUMENTATION
 
@@ -68,7 +68,6 @@ GPLv2
 
 use strict;
 use warnings;
-
 use Munin::Plugin;
 use File::Basename;
 
@@ -77,16 +76,18 @@ if (basename($0) !~ /^nagios_multi_/) {
     exit 1;
 }
 
+# tell munin about our multigraph capabilties
 need_multigraph();
 
+# import binary information or use default setting
 my $binary = $ENV{binary} || '/usr/local/nagios/bin/nagiostats';
-
 unless ((-e $binary) && (-x $binary)) {
     # err, I'm unable to run the binary specified
     print "no: Unable to execute $binary\n";
     exit 1;
 }
 
+# import passive flag or use default setting
 my $passive = $ENV{passive} || 'off';
 
 =head1 Graph Declarations
@@ -186,7 +187,7 @@ $graphs{svcchklat} = {
         { name => 'AVGACTSVCLAT', label => 'Average Latency', min => '0', type => 'GAUGE', info => 'avg active service check latency (ms).', draw => 'LINE2' },
     ],
 };
-
+# multi-graph for service check execution time ( sub graph of service problems graph )
 $graphs{svcchkext} = {
     config => {
         args => '--lower-limit 0',
@@ -202,7 +203,6 @@ $graphs{svcchkext} = {
         { name => 'AVGACTSVCEXT', label => 'Average Execution', min => '0', type => 'GAUGE', info => 'avg active service check execution time (ms).', draw => 'LINE2' },
     ],
 };
-
 # main graph for host problems 
 $graphs{hosts} = {
     config => {
@@ -254,7 +254,7 @@ $graphs{hostchksc} = {
         { name => 'AVGHSTPSC', label => 'Average', min => '0', type => 'GAUGE', info => 'avg host check % state change.', draw => 'LINE2' },
     ],
 };
-# multi-graph for host check latency and execution times ( sub graph of host problems graph )
+# multi-graph for host check latency times ( sub graph of host problems graph )
 $graphs{hostchklat} = {
     config => {
         args => '--lower-limit 0',
@@ -270,7 +270,7 @@ $graphs{hostchklat} = {
         { name => 'AVGACTHSTLAT', label => 'Average Latency', min => '0', type => 'GAUGE', info => 'avg active host check latency (ms).', draw => 'LINE2' },
     ],
 };
-
+# multi-graph for host check execution times ( sub graph of host problems graph )
 $graphs{hostchkext} = {
     config => {
         args => '--lower-limit 0',
@@ -286,7 +286,6 @@ $graphs{hostchkext} = {
         { name => 'AVGACTHSTEXT', label => 'Average Execution', min => '0', type => 'GAUGE', info => 'avg active host check execution time (ms).', draw => 'LINE2' },
     ],
 };
-
 # main graph for host / service check counts 
 $graphs{checks} = {
     config => {

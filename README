@@ -38,7 +38,7 @@ INSTALLATION
     you can grep for nagios_multi_ if you'd like.
 
     If everything is successful you should find:
-    nagios_multi_ | yes | yes (checks hosts services)
+    nagios_multi_ | no | yes (checks hosts services)
 
 5) Run munin-node-configure --suggest --shell
     you can grep for nagios_multi_ if you'd like.
