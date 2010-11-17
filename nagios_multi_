@@ -94,23 +94,27 @@ my $passive = $ENV{passive} || 'off';
 
     This block of code builds up all of the graph info for all root / sub graphs.
 
-    %graphs   is a container for all of the graph definition information. In here is where you'll
-           find the configuration information for munin's graphing procedure.
+    %graphs: is a container for all of the graph definition information. In here is where you'll
+             find the configuration information for munin's graphing procedure.
     Format:
 
     $graph{graph_name} => {
         config => {
-            You'll find the main graph config stored here, { key => value },
+            You'll find the main graph config stored here
+            { key => value },
+            { ... },
         },
         keys => [ 'Name', 'Name', 'Name', ... ],
         datasrc => [
-            # Name: name given to data value
-            # Attr: Attribute for given value, attribute must be valid plugin argument
+            Name: name given to data value
+            Attr: Attribute and value, attribute must be valid plugin argument
             { name => 'Name', info => 'info about graph' },
             { ... },
         ],
         results => {
-            You'll find the results info from a nagiostats call stored here, { key => value },
+            You'll find the results info from a stats call stored here
+            { key => value },
+            { ... },
         },
     }
 
