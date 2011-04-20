@@ -7,7 +7,7 @@ A Plugin to monitor Nagios Servers and their Performance (Multigraph)
 =head1 MUNIN CONFIGURATION
 
 [nagios_multi_*]
- env.user root
+ user root
  env.binary /usr/local/nagios/bin/nagiostats *default*
  env.passive off *default*
 
